@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ChatBundle\Entity\Users" table="users">
+    <id name="usersId" type="integer" column="users_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="45" nullable="true"/>
+    <field name="firstName" type="string" column="first_name" length="45" nullable="true"/>
+    <field name="year" type="integer" column="year" nullable="false"/>
+    <field name="class" type="integer" column="class" nullable="false"/>
+    <field name="photo" type="string" column="photo" length="255" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
+    <many-to-many field="group" target-entity="Group" mapped-by="users"/>
+  </entity>
+</doctrine-mapping>

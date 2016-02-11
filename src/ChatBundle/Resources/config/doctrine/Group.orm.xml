@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ChatBundle\Entity\Group" table="group">
+    <indexes>
+      <index name="fk_group_users1_idx" columns="author_id"/>
+    </indexes>
+    <id name="groupId" type="integer" column="group_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="70" nullable="true"/>
+    <many-to-one field="author" target-entity="Users">
+      <join-columns>
+        <join-column name="author_id" referenced-column-name="users_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="users" target-entity="Users" inversed-by="group">
+      <join-table name="group_members">
+        <join-columns>
+          <join-column name="group_id" referenced-column-name="group_id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="users_id" referenced-column-name="users_id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

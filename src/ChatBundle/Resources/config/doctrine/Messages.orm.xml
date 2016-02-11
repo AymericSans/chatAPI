@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ChatBundle\Entity\Messages" table="messages">
+    <indexes>
+      <index name="fk_messages_group1_idx" columns="group_id"/>
+      <index name="fk_messages_users1_idx" columns="users_id"/>
+    </indexes>
+    <id name="messagesId" type="integer" column="messages_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="content" type="text" column="content" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
+    <many-to-one field="users" target-entity="Users">
+      <join-columns>
+        <join-column name="users_id" referenced-column-name="users_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="group" target-entity="Group">
+      <join-columns>
+        <join-column name="group_id" referenced-column-name="group_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
