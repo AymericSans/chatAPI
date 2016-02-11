@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `chatAPI`.`users` (
   `year` INT UNSIGNED NOT NULL,
   `class` INT UNSIGNED NOT NULL,
   `photo` VARCHAR(255) NULL,
-  `created-at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`users_id`))
 ENGINE = InnoDB;
 
@@ -44,7 +44,7 @@ CREATE INDEX `fk_group_users1_idx` ON `chatAPI`.`group` (`author_id` ASC);
 CREATE TABLE IF NOT EXISTS `chatAPI`.`messages` (
   `messages_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `content` LONGTEXT NULL,
-  `created-at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `group_id` INT UNSIGNED NOT NULL,
   `users_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`messages_id`),
