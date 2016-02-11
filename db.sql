@@ -2,21 +2,19 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `chatAPI` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `chatAPI` ;
 
 -- -----------------------------------------------------
 -- Table `chatAPI`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `chatAPI`.`users` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `users_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `first-name` VARCHAR(45) NULL,
+  `first_name` VARCHAR(45) NULL,
   `year` INT UNSIGNED NOT NULL,
   `class` INT UNSIGNED NOT NULL,
   `photo` VARCHAR(255) NULL,
   `created-at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`users_id`))
 ENGINE = InnoDB;
 
 
@@ -24,13 +22,13 @@ ENGINE = InnoDB;
 -- Table `chatAPI`.`group`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `chatAPI`.`group` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `group_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(70) NULL,
   `author_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`group_id`),
   CONSTRAINT `fk_group_users1`
     FOREIGN KEY (`author_id`)
-    REFERENCES `chatAPI`.`users` (`id`)
+    REFERENCES `chatAPI`.`users` (`users_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -42,20 +40,20 @@ CREATE INDEX `fk_group_users1_idx` ON `chatAPI`.`group` (`author_id` ASC);
 -- Table `chatAPI`.`messages`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `chatAPI`.`messages` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `messages_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `content` LONGTEXT NULL,
   `created-at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `group_id` INT UNSIGNED NOT NULL,
   `users_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`messages_id`),
   CONSTRAINT `fk_messages_group1`
     FOREIGN KEY (`group_id`)
-    REFERENCES `chatAPI`.`group` (`id`)
+    REFERENCES `chatAPI`.`group` (`group_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_messages_users1`
     FOREIGN KEY (`users_id`)
-    REFERENCES `chatAPI`.`users` (`id`)
+    REFERENCES `chatAPI`.`users` (`users_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -74,12 +72,12 @@ CREATE TABLE IF NOT EXISTS `chatAPI`.`group_members` (
   PRIMARY KEY (`group_id`, `users_id`),
   CONSTRAINT `fk_group_has_users_group`
     FOREIGN KEY (`group_id`)
-    REFERENCES `chatAPI`.`group` (`id`)
+    REFERENCES `chatAPI`.`group` (`group_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_group_has_users_users1`
     FOREIGN KEY (`users_id`)
-    REFERENCES `chatAPI`.`users` (`id`)
+    REFERENCES `chatAPI`.`users` (`users_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
