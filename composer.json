@@ -23,7 +23,8 @@
         "symfony/phpunit-bridge": "~2.7",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "hautelook/alice-bundle": "^0.2.0",
-        "doctrine/data-fixtures": "^1.1"
+        "doctrine/data-fixtures": "^1.1",
+        "phpunit/phpunit":">=4.5"
     },
     "scripts": {
         "post-install-cmd": [
