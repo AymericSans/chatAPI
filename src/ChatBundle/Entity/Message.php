@@ -103,4 +103,50 @@ class Message
     {
         return $this->createdAt;
     }
+
+    /**
+     * Set user
+     *
+     * @param \ChatBundle\Entity\User $user
+     * @return Message
+     */
+    public function setUser(\ChatBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \ChatBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set room
+     *
+     * @param \ChatBundle\Entity\Room $room
+     * @return Message
+     */
+    public function setRoom(\ChatBundle\Entity\Room $room = null)
+    {
+        $this->room = $room;
+
+        return $this;
+    }
+
+    /**
+     * Get room
+     *
+     * @return \ChatBundle\Entity\Room 
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
 }

@@ -34,15 +34,15 @@ class Room
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $author;
-
-    /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="room")
      */
     private $messages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="authors")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
 
     /**
      * Get id
@@ -75,5 +75,102 @@ class Room
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add user
+     *
+     * @param \ChatBundle\Entity\User $user
+     * @return Room
+     */
+    public function addUser(\ChatBundle\Entity\User $user)
+    {
+        $this->user[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \ChatBundle\Entity\User $user
+     */
+    public function removeUser(\ChatBundle\Entity\User $user)
+    {
+        $this->user->removeElement($user);
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \ChatBundle\Entity\User $author
+     * @return Room
+     */
+    public function setAuthor(\ChatBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \ChatBundle\Entity\User 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Add messages
+     *
+     * @param \ChatBundle\Entity\Message $messages
+     * @return Room
+     */
+    public function addMessage(\ChatBundle\Entity\Message $messages)
+    {
+        $this->messages[] = $messages;
+
+        return $this;
+    }
+
+    /**
+     * Remove messages
+     *
+     * @param \ChatBundle\Entity\Message $messages
+     */
+    public function removeMessage(\ChatBundle\Entity\Message $messages)
+    {
+        $this->messages->removeElement($messages);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }
